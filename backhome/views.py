@@ -17,16 +17,11 @@ import json
 import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from transformers import RobertaTokenizer
-from torch.utils.data import DataLoader
-import torch
-from collections import Counter
 import time
 import warnings
 warnings.filterwarnings("ignore")
 # <-------------------------------- LOADING MODEL CODE ------------------------------------------------->
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # <-------------------------- GPT4 CODE FOR TEXT SUMMARIZATION AND KEYWORD EXTRACTION -------------------------->
 session_data = {}  # e.g. {'some-session-id': {'comments': [], 'processed': False}}
