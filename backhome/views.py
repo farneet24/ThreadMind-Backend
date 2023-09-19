@@ -389,16 +389,16 @@ def fetch_sentiment(request):
         comments = data.get('comments')
         
         # Get the first 30 comments
-        first_30_comments = comments[:30]
+        first_30_comments = comments[:15]
 
         # Exclude the first 30 comments
-        remaining_comments = comments[30:]
+        remaining_comments = comments[15:]
 
         # Randomly select 30 comments from the remaining comments
-        if len(remaining_comments) >= 30:
-            random_30_comments = random.sample(remaining_comments, 30)
+        if len(remaining_comments) >= 15:
+            random_30_comments = random.sample(remaining_comments, 15)
         else:
-            random_30_comments = remaining_comments  # Take all if less than 30
+            random_30_comments = remaining_comments  # Take all if less than 15
         
         # Combine first 30 and random 30 comments
         selected_comments = first_30_comments + random_30_comments
@@ -430,14 +430,14 @@ def fetch_emotion(request):
         comments = data.get('comments')
 
         # Get the first 30 comments
-        first_30_comments = comments[:30]
+        first_30_comments = comments[:15]
 
         # Exclude the first 30 comments
-        remaining_comments = comments[30:]
+        remaining_comments = comments[15:]
 
         # Randomly select 30 comments from the remaining comments
-        if len(remaining_comments) >= 30:
-            random_30_comments = random.sample(remaining_comments, 30)
+        if len(remaining_comments) >= 15:
+            random_30_comments = random.sample(remaining_comments, 15)
         else:
             random_30_comments = remaining_comments  # Take all if less than 30
 
@@ -470,14 +470,14 @@ def fetch_cyber(request):
         comments = data.get('comments')
 
         # Get the first 30 comments
-        first_30_comments = comments[:30]
+        first_30_comments = comments[:15]
 
         # Exclude the first 30 comments
-        remaining_comments = comments[30:]
+        remaining_comments = comments[15:]
 
         # Randomly select 30 comments from the remaining comments
-        if len(remaining_comments) >= 30:
-            random_30_comments = random.sample(remaining_comments, 30)
+        if len(remaining_comments) >= 15:
+            random_30_comments = random.sample(remaining_comments, 15)
         else:
             random_30_comments = remaining_comments  # Take all if less than 30
 
