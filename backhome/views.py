@@ -470,14 +470,14 @@ def fetch_cyber(request):
         comments = data.get('comments')
 
         # Get the first 30 comments
-        first_30_comments = comments[:15]
+        first_30_comments = comments[:10]
 
         # Exclude the first 30 comments
-        remaining_comments = comments[15:]
+        remaining_comments = comments[10:]
 
         # Randomly select 30 comments from the remaining comments
-        if len(remaining_comments) >= 15:
-            random_30_comments = random.sample(remaining_comments, 15)
+        if len(remaining_comments) >= 5:
+            random_30_comments = random.sample(remaining_comments, 5)
         else:
             random_30_comments = remaining_comments  # Take all if less than 30
 
