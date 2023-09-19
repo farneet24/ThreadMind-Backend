@@ -499,8 +499,9 @@ def fetch_cyber(request):
             return JsonResponse({"error": "Failed to decode emotion data"}, status=500)
 
         end = time.time()
-        print(cyber_response_data, "Execution Time", end - start)
-        return JsonResponse({"cyber": cyber_response_data})
+        response = JsonResponse({"cyber": cyber_response_data})
+        response["Access-Control-Allow-Origin"] = "*"
+        return response
 
 
 class URLModelViewSet(viewsets.ModelViewSet):
