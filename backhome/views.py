@@ -10,6 +10,7 @@ import praw
 import datetime
 from rest_framework.decorators import api_view
 import uuid
+from praw.models import MoreComments
 from googleapiclient.discovery import build
 from django.http import StreamingHttpResponse
 import openai
@@ -18,6 +19,7 @@ import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import time
+from urllib.parse import unquote  # For URL decoding
 import warnings
 warnings.filterwarnings("ignore")
 # <-------------------------------- LOADING MODEL CODE ------------------------------------------------->
@@ -128,23 +130,135 @@ def Keywords(request, session_id):
     return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
 
 
-def extract_id(url):
-    reddit_pattern = r'https://www\.reddit\.com/r/\w+/comments/([\w\d]+)/'
-    youtube_pattern = r'https://www\.youtube\.com/watch\?v=([\w\d-]+)'
-    youtube_shorts_pattern = r'https://www\.youtube\.com/shorts/([\w\d-]+)'
+def extract_youtube_id(url):
+    regex = r'(?:https?://)?(?:www\.)?(?:youtube\.com|youtu\.be|m\.youtube\.com)/(?:watch\?v=|embed/|shorts/|v/|share\?v=|attribution_link\?.*u=/watch\?v=|watch\?.*v=)?([a-zA-Z0-9_-]+)'
+    match = re.search(regex, url)
+    return match.group(1) if match else None
 
-    reddit_match = re.search(reddit_pattern, url)
-    youtube_match = re.search(youtube_pattern, url)
-    youtube_shorts_match = re.search(youtube_shorts_pattern, url)
+def extract_reddit_post_id(url):
+    # Decode the URL to ensure it's in a standard format
+    url = unquote(url)
+
+    # Regular expression to match standard Reddit URLs
+    standard_regex = re.compile(r'(?:https?://)?(?:www\.)?reddit\.com/r/\w+/comments/([a-zA-Z0-9_]+)/')
+    
+    # Regular expression to match Reddit email URLs
+    email_regex = re.compile(r'https://click\.redditmail\.com/.*?reddit\.com.*?/comments/([a-zA-Z0-9_]+).*?/')
+    
+    # Regular expression to match Reddit share URLs
+    share_regex = re.compile(r'(?:https?://)?(?:www\.)?reddit\.com/r/\w+/s/\w+')
+
+    # Check if URL matches standard Reddit format
+    standard_match = standard_regex.search(url)
+    if standard_match:
+        return standard_match.group(1)
+
+    # Check if URL matches Reddit email format
+    email_match = email_regex.search(url)
+    if email_match:
+        return email_match.group(1)
+
+    # Check if URL matches Reddit share format
+    share_match = share_regex.search(url)
+    if share_match:
+        response = requests.get(url)
+        if response.status_code == 200:
+            final_url = response.url
+            final_match = standard_regex.search(final_url)
+            return final_match.group(1) if final_match else None
+
+    return None  # Return None if no Post ID can be extracted
+
+def extract_id(url):
+
+    youtube_match = extract_youtube_id(url)
+    reddit_match = extract_reddit_post_id(url)
+
+    print("Reddit: " ,reddit_match)
+    print("Youtube: ", youtube_match)
 
     if reddit_match:
-        return fetch_reddit_comments(reddit_match.group(1))
+        return fetch_reddit_comments(reddit_match)
     elif youtube_match:
-        return fetch_youtube_info(youtube_match.group(1))
-    elif youtube_shorts_match:
-        return fetch_youtube_info(youtube_shorts_match.group(1))
+        return fetch_youtube_info(youtube_match)
     else:
         return 'Invalid URL'
+
+# Fetching Comments and Replies of Reddit
+def process_comments(comments, tree, limit=30):
+    count = 0
+    for comment in comments:
+        if count >= limit:
+            break
+        if isinstance(comment, MoreComments):
+            continue  # Skip "load more comments" instances
+
+        comment_dict = {
+            "author": str(comment.author),
+            "timestamp": comment.created_utc,
+            "upvotes": comment.ups,
+            "text": comment.body,
+            "replies": []
+        }
+
+        process_comments(comment.replies, comment_dict["replies"])
+        
+        tree.append(comment_dict)
+        count += 1
+
+# Fetching Comments and Replies of Youtube
+def get_comment_threads(youtube, video_id, limit=100):
+    tree = []
+    count = 0
+    nextPage_token = None
+
+    while count < limit:
+        response = youtube.commentThreads().list(
+            part='snippet,replies',
+            videoId=video_id,
+            order='relevance',
+            maxResults=100,  # max results per API call
+            pageToken=nextPage_token
+        ).execute()
+
+        for item in response['items']:
+            topLevelComment = item['snippet']['topLevelComment']['snippet']
+            
+            main_comment_dict = {
+                "author": topLevelComment['authorDisplayName'],
+                "timestamp": topLevelComment['publishedAt'],
+                "author_image_url": topLevelComment['authorProfileImageUrl'],
+                'upvotes' : topLevelComment['likeCount'],
+                "text": topLevelComment['textDisplay'],
+                "replies": []
+            }
+
+            if 'replies' in item.keys():
+                for reply in item['replies']['comments']:
+                    reply_info = reply['snippet']
+                    
+                    reply_dict = {
+                        "author": reply_info['authorDisplayName'],
+                        "timestamp": reply_info['publishedAt'],
+                        "author_image_url": reply_info['authorProfileImageUrl'],
+                        "upvotes": reply_info['likeCount'],
+                        "text": reply_info['textDisplay']
+                    }
+
+                    main_comment_dict["replies"].append(reply_dict)
+
+            tree.append(main_comment_dict)
+            count += 1
+
+            if count >= limit:
+                break
+
+        if 'nextPageToken' in response:
+            nextPage_token = response['nextPageToken']
+        else:
+            break
+
+    return tree
 
 
 def fetch_reddit_comments(post_id):
@@ -162,20 +276,7 @@ def fetch_reddit_comments(post_id):
         date_posted = datetime.datetime.utcfromtimestamp(
             submission.created_utc).strftime('%Y-%m-%d %H:%M:%S')
         print('Fetching Reddit data: ')
-        # print("Title:", submission.title)
-        # print("Posted by:", submission.author)
-        # print("Date:", date_posted)
-        # print("Subreddit:", submission.subreddit)
-        # print('Media', submission.media)
-        # print("Upvotes:", submission.ups)
-        # print('Category', submission.category)
-        # print("Downvotes:", submission.downs) 
-        # print("Text:", submission.selftext) # Description
-        # # can be used to show how popular the post is
-        # print('Number of comments: ', submission.num_comments)
-        # print('NSFW?: ', submission.over_18)  # If the post is NSFW or not
-        # # Shows how likable the post is
-        # print('Likability Index', submission.upvote_ratio)
+
         submission.comments.replace_more(limit=1)
         comments = submission.comments.list()
         # Build a DataFrame from the comments
@@ -208,6 +309,7 @@ def fetch_reddit_comments(post_id):
             'description' : submission.selftext,
             'post_image' : image_url,
             'post_video' : video_url,
+            'post_id' : post_id,
         }
 
         Dictionary['reddit_info'] = reddit_info
@@ -222,6 +324,8 @@ def fetch_reddit_comments(post_id):
 
         Dictionary['subreddit_info'] = subreddit_info
 
+
+        # Extrating Comments for Analyzing
         data = {'Comments': []}
         meter = 0
         for comment in comments:
@@ -233,7 +337,12 @@ def fetch_reddit_comments(post_id):
         df = df[df['Comments'] != '[removed]']
         # print(df)
         Dictionary['comments'] = json.loads(df.to_json(orient='records'))
-        print(Dictionary)
+        comment_tree = []
+
+        process_comments(comments, comment_tree)
+        print("The comment tree is", comment_tree)
+        Dictionary['comment_tree'] = {'comment_tree' : comment_tree}
+        print(Dictionary['comment_tree'])
 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -295,6 +404,7 @@ def fetch_youtube_info(video_id):
         # print(f'Tags: {", ".join(tags)}')
 
         video_info = {
+            'videoId' : video_id,
             'published_at': video_item['publishedAt'],
             'title': video_item['title'],
             'description': video_item['description'],
@@ -362,6 +472,9 @@ def fetch_youtube_info(video_id):
         df = pd.DataFrame(comments, columns=['Comments'])
         # print(df)
         Dictionary['comments'] = json.loads(df.to_json(orient='records'))
+        comment_tree = get_comment_threads(youtube, video_id)
+        print('The comment tree is', comment_tree);
+        Dictionary['comment_tree'] = {'comment_tree' : comment_tree}
 
     except Exception as e:
         print(f"An error occurred while fetching comments: {e}")
@@ -510,8 +623,8 @@ class URLModelViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         url = request.data.get('url')
+        print("URL: ", url);
         JsonDict = extract_id(url)  # Use your existing function
-
         # Check if JsonDict is a string and stop if it is
         if isinstance(JsonDict, str):
             # \033[91m is the ANSI escape code for red text
