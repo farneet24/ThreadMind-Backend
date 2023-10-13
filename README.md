@@ -34,11 +34,6 @@
 - 📊 **Data Sources**: YouTube API, Reddit API — Provide the raw data that fuels our analytics.
 - 🤖 **Machine Learning Models**: OpenAI GPT-3.5TURBO, Fine-tuned RoBERTa and XLNet hosted on Google Cloud Run — These are the core algorithms responsible for the project's advanced analytics capabilities.
 
-
-## Installation and Deployment 
-
-The backend service is hosted on Heroku. To deploy your own instance, refer to the official [Heroku Documentation](https://devcenter.heroku.com/).  🚀
-
 ## Try Now
 
 👉 Access the website by clicking on this link, [ThreadMind](https://thread-mind.vercel.app/).
