@@ -8,8 +8,6 @@
 4. [Deployment](#deployment)
 5. [Usage](#usage)
 6. [Rate Limiting](#rate-limiting)
-7. [Contributing](#contributing)
-8. [License](#license)
 
 ## Description
 
