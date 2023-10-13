@@ -21,7 +21,7 @@
 ### 🗨️ Comment Analytics
 - 📈 **What it does**: Delivers insightful analytics including sentiment distribution, emotional tendencies, and cyberbullying flags for user comments.
 - 📘 **How it works**: Leverages custom-tailored language models that have been fine-tuned on specialized datasets harvested from social media platforms such as Twitter and Reddit. These models are optimized for high-accuracy text analytics, enabling nuanced understanding of user-generated content. For diving deeper into the technical aspects, the Jupyter notebooks detailing our data processing and model fine-tuning workflows are available [here](https://github.com/farneet24/Pre-trained-Models.git).
-- 
+ 
 ### 📝 NLP-powered Summarization
 - 🤖 **What it does**: Summarizes lengthy comment threads and extracts keywords for quick understanding.
 - 📘 **How it works**: Implement OpenAI's GPT-3.5TURBO for generating concise and informative summaries and for keyword extraction, using techniques like Term Frequency-Inverse Document Frequency (TF-IDF).
