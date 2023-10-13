@@ -5,7 +5,7 @@
 2. [✨ Features](#features)
 3. [🛠 Technological Stack](#technological-stack)
 4. [🚀 Installation and Deployment](#installation-and-deployment)
-5. [🌐 Usage](#usage)
+5. [🌐 Usage](#try-now)
 6. [⏳ Rate Limiting and Session Management](#rate-limiting-and-session-management)
 7. [🤝 Contributing](#contributing)
 
