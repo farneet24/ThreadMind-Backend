@@ -8,39 +8,44 @@
 5. [⏳ Rate Limiting and Session Management](#rate-limiting-and-session-management)
 6. [🤝 Contributing](#contributing)
 
-## Overview
+## 👁‍🗨 Overview
 
-👋 Welcome to the official backend repository for **ThreadMind**, an intelligent service designed for in-depth analysis of comments from YouTube and Reddit platforms. 📈 This system incorporates state-of-the-art machine learning algorithms 🤖 to perform sentiment analysis, emotion recognition, and cyberbullying classification. 📚 It also offers comment summarization and keyword extraction capabilities.
+Welcome to the backend repository of **ThreadMind**, a pioneering service specialized in the sophisticated analysis of user-generated content on YouTube and Reddit platforms. This repository serves as the backbone for the application, employing state-of-the-art machine learning algorithms for sentiment analysis, emotion recognition, and cyberbullying classification, along with natural language summarization and keyword extraction capabilities.
 
-## Features 
+## ✨ Features
 
 ### 📊 Data Aggregation
-- 📌 **What it does**: Gathers contextual information such as the post/video description, channel/subreddit details, and audience engagement metrics.
-- 📘 **How it works**: Utilizes OAuth 2.0 protocols to securely interface with YouTube and Reddit APIs and fetch relevant metadata. 
+- **Objective**: To accrue and amalgamate a spectrum of contextual metadata, including channel/subreddit attributes and post/video descriptions.
+- **Implementation**: Utilizes OAuth 2.0 protocols for secure API calls to YouTube and Reddit, ensuring data integrity and security.
 
 ### 🗨️ Comment Analytics
-- 📈 **What it does**: Delivers insightful analytics including sentiment distribution, emotional tendencies, and cyberbullying flags for user comments.
-- 📘 **How it works**: Leverages custom-tailored language models that have been fine-tuned on specialized datasets harvested from social media platforms such as Twitter and Reddit. These models are optimized for high-accuracy text analytics, enabling nuanced understanding of user-generated content. For diving deeper into the technical aspects, the Jupyter notebooks detailing our data processing and model fine-tuning workflows are available [here](https://github.com/farneet24/Pre-trained-Models.git).
- 
+- **Objective**: To offer actionable insights by performing sentiment analysis, emotion recognition, and cyberbullying classification on user comments.
+- **Implementation**: Employs fine-tuned machine learning models on socially-sourced datasets, including but not limited to Twitter and Reddit. For an in-depth review of the models and methodologies, refer to the associated [Jupyter notebooks](https://github.com/farneet24/Pre-trained-Models.git).
+
 ### 📝 NLP-powered Summarization
-- 🤖 **What it does**: Summarizes lengthy comment threads and extracts keywords for quick understanding.
-- 📘 **How it works**: Implement OpenAI's GPT-3.5TURBO for generating concise and informative summaries and for keyword extraction, using techniques like Term Frequency-Inverse Document Frequency (TF-IDF).
+- **Objective**: To distill extensive comment threads into concise summaries and relevant keywords.
+- **Implementation**: Leverages the capabilities of OpenAI's GPT-3.5TURBO model, utilizing advanced NLP techniques like TF-IDF for keyword extraction.
 
 ## 🛠 Technological Stack
 
-- 🗨️ **Communication**: REST API — A standard for creating scalable and stateless services.
-- 🚀 **Deployment Platform**: Heroku — A cloud-based service that enables quick and hassle-free deployment.
-- 📊 **Data Sources**: YouTube API, Reddit API — Provide the raw data that fuels our analytics.
-- 🤖 **Machine Learning Models**: OpenAI GPT-3.5TURBO, Fine-tuned RoBERTa and XLNet hosted on Google Cloud Run — These are the core algorithms responsible for the project's advanced analytics capabilities.
+- **Communication**: REST API
+- **Deployment Platform**: Heroku
+- **Data Sources**: YouTube API, Reddit API
+- **Machine Learning Models**: OpenAI GPT-3.5TURBO, Fine-tuned RoBERTa, and XLNet hosted on Google Cloud Run
 
-## Try Now
+## 🌐 Usage
 
-👉 Access the website by clicking on this link, [ThreadMind](https://thread-mind.vercel.app/).
+Experience the live application [here](https://thread-mind.vercel.app/).
 
-## Rate Limiting and Session Management
+## ⏳ Rate Limiting and Session Management
 
-- 🕒 Rate-limiting mechanisms are implemented to control the frequency of API requests.
-- 🔒 Unique session IDs are generated to optimize resource allocation and prevent redundant queries.
+- **Rate Limiting**: Implemented to manage the API request frequency, thereby ensuring system stability.
+- **Session Management**: Unique session IDs are generated to optimize resource allocation and to circumvent redundancy.
+
+## 🤝 Contributing
+
+Interested contributors are invited to connect via [LinkedIn](https://www.linkedin.com/in/farneet-singh-6b155b208/).
+
 
 ## Contributing
 
