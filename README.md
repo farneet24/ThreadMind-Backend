@@ -1,18 +1,18 @@
 # 🧠 ThreadMind Backend: Advanced Comment Analysis Service 📊
 
 ## 📌 Table of Contents
-1. [👁‍🗨 Overview](#overview)
-2. [✨ Features](#features)
-3. [🛠 Technological Stack](#technological-stack)
-4. [🌐 Usage](#try-now)
-5. [⏳ Rate Limiting and Session Management](#rate-limiting-and-session-management)
-6. [🤝 Contributing](#contributing)
+1. [Overview](#overview-👁‍🗨)
+2. [Features](#features-✨)
+3. [Technological Stack](#technological-stack-🛠)
+4. [Usage](#usage-🌐)
+5. [Rate Limiting and Session Management](#rate-limiting-and-session-management-⏳)
+6. [Contributing](#contributing-🤝)
 
-## Overview 👁‍🗨 
+## <a name="overview-👁‍🗨"></a>Overview 👁‍🗨
 
 Welcome to the backend repository of **ThreadMind**, a pioneering service specialized in the sophisticated analysis of user-generated content on YouTube and Reddit platforms. This repository serves as the backbone for the application, employing state-of-the-art machine learning algorithms for sentiment analysis, emotion recognition, and cyberbullying classification, along with natural language summarization and keyword extraction capabilities.
 
-## Features ✨ 
+## <a name="features-✨"></a>Features ✨
 
 ### Data Aggregation 📊 
 - **Objective**: To accrue and amalgamate a spectrum of contextual metadata, including channel/subreddit attributes and post/video descriptions.
@@ -26,23 +26,23 @@ Welcome to the backend repository of **ThreadMind**, a pioneering service specia
 - **Objective**: To distill extensive comment threads into concise summaries and relevant keywords.
 - **Implementation**: Leverages the capabilities of OpenAI's GPT-3.5TURBO model, utilizing advanced NLP techniques like TF-IDF for keyword extraction.
 
-## Technological Stack 🛠 
+## <a name="technological-stack-🛠"></a>Technological Stack 🛠
 
 - **Communication**: REST API
 - **Deployment Platform**: Heroku
 - **Data Sources**: YouTube API, Reddit API
 - **Machine Learning Models**: OpenAI GPT-3.5TURBO, Fine-tuned RoBERTa, and XLNet hosted on Google Cloud Run
 
-## Usage 🌐 
+## <a name="usage-🌐"></a>Usage 🌐
 
 Experience the live application [here](https://thread-mind.vercel.app/).
 
-## Rate Limiting and Session Management ⏳ 
+## <a name="rate-limiting-and-session-management-⏳"></a>Rate Limiting and Session Management ⏳
 
 - **Rate Limiting**: Implemented to manage the API request frequency, thereby ensuring system stability.
 - **Session Management**: Unique session IDs are generated to optimize resource allocation and to circumvent redundancy.
 
-## Contributing 🤝 
+## <a name="contributing-🤝"></a>Contributing 🤝
 
 Interested contributors are invited to connect via [LinkedIn](https://www.linkedin.com/in/farneet-singh-6b155b208/).
 
