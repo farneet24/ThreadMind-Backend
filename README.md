@@ -44,7 +44,7 @@ The backend service is hosted on Heroku. To deploy your own instance, refer to t
 - 🕒 Rate-limiting mechanisms are implemented to control the frequency of API requests.
 - 🔒 Unique session IDs are generated to optimize resource allocation and prevent redundant queries.
 
-## 🤝 Contributing
+## Contributing
 
 🙌 Contributions are welcome! If you're interested in collaborating or contributing, feel free to connect with me here on [LinkedIn](https://www.linkedin.com/in/farneet-singh-6b155b208/)!
 
