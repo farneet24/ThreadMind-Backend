@@ -15,21 +15,25 @@
 
 ## Features 
 
-### Data Aggregation
-- 📌 Fetches essential metadata such as post/video descriptions, channel/subreddit information, and statistical data by leveraging YouTube and Reddit APIs.
+### 📊 Data Aggregation
+- 📌 **What it does**: Gathers contextual information such as the post/video description, channel/subreddit details, and audience engagement metrics.
+- 📘 **How it works**: Utilizes OAuth 2.0 protocols to securely interface with YouTube and Reddit APIs and fetch relevant metadata. 
 
-### Comment Analytics
-- 📈 Conducts sentiment analysis, emotion recognition, and cyberbullying classification on comments, yielding actionable insights.
+### 🗨️ Comment Analytics
+- 📈 **What it does**: Delivers insightful analytics including sentiment distribution, emotional tendencies, and cyberbullying flags for user comments.
+- 📘 **How it works**: Leverages custom-tailored language models that have been fine-tuned on specialized datasets harvested from social media platforms such as Twitter and Reddit. These models are optimized for high-accuracy text analytics, enabling nuanced understanding of user-generated content. For diving deeper into the technical aspects, the Jupyter notebooks detailing our data processing and model fine-tuning workflows are available [here](https://github.com/farneet24/Pre-trained-Models.git).
+- 
+### 📝 NLP-powered Summarization
+- 🤖 **What it does**: Summarizes lengthy comment threads and extracts keywords for quick understanding.
+- 📘 **How it works**: Implement OpenAI's GPT-3.5TURBO for generating concise and informative summaries and for keyword extraction, using techniques like Term Frequency-Inverse Document Frequency (TF-IDF).
 
-### NLP-powered Summarization
-- 🤖 Utilizes OpenAI's GPT-3.5TURBO model for real-time comment summarization and keyword extraction.
+## 🛠 Technological Stack
 
-## Technological Stack 
+- 🗨️ **Communication**: REST API — A standard for creating scalable and stateless services.
+- 🚀 **Deployment Platform**: Heroku — A cloud-based service that enables quick and hassle-free deployment.
+- 📊 **Data Sources**: YouTube API, Reddit API — Provide the raw data that fuels our analytics.
+- 🤖 **Machine Learning Models**: OpenAI GPT-3.5TURBO, Fine-tuned RoBERTa and XLNet hosted on Google Cloud Run — These are the core algorithms responsible for the project's advanced analytics capabilities.
 
-- 🗨️ **Communication**: REST API
-- 🚀 **Deployment Platform**: Heroku
-- 📊 **Data Sources**: YouTube API, Reddit API
-- 🤖 **Machine Learning Models**: OpenAI GPT-3.5TURBO, Fine-tuned RoBERTa and XLNet hosted on Google Cloud Run
 
 ## Installation and Deployment 
 
