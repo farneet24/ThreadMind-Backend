@@ -4,10 +4,9 @@
 1. [👁‍🗨 Overview](#overview)
 2. [✨ Features](#features)
 3. [🛠 Technological Stack](#technological-stack)
-4. [🚀 Installation and Deployment](#installation-and-deployment)
-5. [🌐 Usage](#try-now)
-6. [⏳ Rate Limiting and Session Management](#rate-limiting-and-session-management)
-7. [🤝 Contributing](#contributing)
+4. [🌐 Usage](#try-now)
+5. [⏳ Rate Limiting and Session Management](#rate-limiting-and-session-management)
+6. [🤝 Contributing](#contributing)
 
 ## Overview
 
