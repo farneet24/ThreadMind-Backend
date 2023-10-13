@@ -59,7 +59,7 @@ def Summary(request, session_id):
     question = "Summarize these comments: " + ' '.join(comments)
 
     def event_stream():
-        API_KEY = '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'
+        API_KEY = os.environ.get('key');
         openai.api_key = API_KEY
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
@@ -103,7 +103,7 @@ def Keywords(request, session_id):
     question = "Top 5 Proper nouns: " + ' '.join(comments)
 
     def event_stream():
-        API_KEY = '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'
+        API_KEY = os.environ.get('key');
         openai.api_key = API_KEY
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
@@ -517,7 +517,7 @@ def fetch_sentiment(request):
         selected_comments = first_30_comments + random_30_comments
         
 
-        sentiment_api_url = "https://sentimentcloud-uikhbv3hna-uc.a.run.app/sentiment"
+        sentiment_api_url = os.environ.get('sentiment_url');
 
         try:
             sentiment_response = requests.post(sentiment_api_url, json=selected_comments)
@@ -557,7 +557,7 @@ def fetch_emotion(request):
         # Combine first 30 and random 30 comments
         selected_comments = first_30_comments + random_30_comments
 
-        emotion_api_url = "https://emotioncloud-qvklogf5la-uc.a.run.app/emotion"
+        emotion_api_url = os.environ.get('emotion_url');
 
         try:
             emotion_response = requests.post(emotion_api_url, json=selected_comments)
@@ -597,7 +597,7 @@ def fetch_cyber(request):
         # Combine first 30 and random 30 comments
         selected_comments = first_30_comments + random_30_comments
 
-        cyber_api_url = "https://cybercloudmain-pizqny23ma-uc.a.run.app/cyber"
+        cyber_api_url = os.environ.get('cyber_url');
 
         try:
             cyber_response = requests.post(cyber_api_url, json=selected_comments)
