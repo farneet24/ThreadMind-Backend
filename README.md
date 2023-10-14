@@ -44,5 +44,5 @@ Experience the live application [here](https://thread-mind.vercel.app/).
 
 ## <a name="contributing-🤝"></a>Contributing 🤝
 
-Interested contributors are invited to connect via [LinkedIn](https://www.linkedin.com/in/farneet-singh-6b155b208/).
+Interested contributors are invited to connect via [LinkedIn](https://www.linkedin.com/in/farneet-singh-6b155b208/). Explore the front-end code [here](https://github.com/farneet24/ThreadMind).
 
