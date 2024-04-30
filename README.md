@@ -46,3 +46,7 @@ Experience the live application [here](https://thread-mind.vercel.app/).
 
 Interested contributors are invited to connect via [LinkedIn](https://www.linkedin.com/in/farneet-singh-6b155b208/). Explore the front-end code [here](https://github.com/farneet24/ThreadMind).
 
+## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+The project is licensed under the MIT License.
